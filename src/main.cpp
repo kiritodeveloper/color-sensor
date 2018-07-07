@@ -1,11 +1,9 @@
 #include <Arduino.h>
+
 // Define constants
 #define LED_R 11
 #define LED_G 12
 #define LED_B 13
-#define RGBLED_R 6
-#define RGBLED_G 9
-#define RGBLED_B 10
 #define LED_CALIBRATION 3
 #define LED_SENSING 4
 #define LED_CALIBRATION_WHITE 7
@@ -14,6 +12,8 @@
 #define BUTTON_MODE 2
 #define STATE_CALIBRATION 0
 #define STATE_READ_COLOR 1
+
+//Used: 2,3,4,7,8,11,12,13
 
 // Declare variables
 int current_state = STATE_CALIBRATION;
@@ -31,6 +31,7 @@ void calibrate();
 void read_color();
 void read_rgb_values(int *r, int *g, int *b);
 void print_color(int r, int g, int b);
+void send_rgb_code(int r, int g, int b);
 
 
 void setup() {
@@ -41,49 +42,74 @@ void loop() {
     switch(current_state){
         case STATE_READ_COLOR:
         read_color();
+        break;
         case STATE_CALIBRATION:
         calibrate();
+        break;
     }
+    //Serial.println(analogRead(A0));
 }
 
 // Function implementation
 void initialize(){
+    Serial.begin(9600);
     pinMode(LED_R, OUTPUT);
     pinMode(LED_G, OUTPUT);
     pinMode(LED_B, OUTPUT);
     pinMode(LED_CALIBRATION, OUTPUT);
     pinMode(LED_SENSING, OUTPUT);
-    pinMode(LDR, OUTPUT);
     pinMode(BUTTON_MODE, INPUT_PULLUP);
+    current_state = STATE_CALIBRATION;
 }
 
 int white_calibration_count = 0;
 int black_calibration_count = 0;
 int average_white_r=0, average_white_g=0, average_white_b=0;
 int average_black_r=0, average_black_g=0, average_black_b=0;
+bool calibration_white_started = false;
+bool calibration_black_started = false;
 void calibrate(){
+
     if(white_calibration_count<5){
+        if(!calibration_white_started){
+            delay(3000);
+            calibration_white_started = true;
+        }
         int r, g, b;
         read_rgb_values(&r, &g, &b);
-        average_white_r = (average_white_r + r)/(white_calibration_count + 1);
-        average_white_g = (average_white_g + g)/(white_calibration_count + 1);
-        average_white_b = (average_white_b + b)/(white_calibration_count + 1);
+        average_white_r += r;
+        average_white_g += g;
+        average_white_b += b;
         white_calibration_count++;
+        delay(50);
     }else if(black_calibration_count<5){
+        if(!calibration_black_started){
+            delay(3000);
+            calibration_black_started = true;
+        }
         int r, g, b;
         read_rgb_values(&r, &g, &b);
-        average_black_r = (average_black_r + r)/(black_calibration_count + 1);
-        average_black_g = (average_black_g + g)/(black_calibration_count + 1);
-        average_black_b = (average_black_b + b)/(black_calibration_count + 1);
-        black_calibration_count++;
+        average_black_r += r;
+        average_black_g += g;
+        average_black_b += b;
+        black_calibration_count++;        
+        delay(50);
     }else{
-        white_r = average_white_r;
-        white_g = average_white_g;
-        white_b = average_white_b;
-        black_r = average_black_r;
-        black_g = average_black_g;
-        black_b = average_black_b;
+        white_r = average_white_r/5;
+        white_g = average_white_g/5;
+        white_b = average_white_b/5;
+        //Serial.println("White");
+        //send_rgb_code(white_r,white_g,white_b);
+        //Serial.println();
+        black_r = average_black_r/5;
+        black_g = average_black_g/5;
+        black_b = average_black_b/5;
+        //Serial.println("Black");
+        //send_rgb_code(black_r,black_g,black_b);
+        //Serial.println();
         current_state = STATE_READ_COLOR;
+        calibration_black_started = false;
+        calibration_white_started = false;
     }
 }
 
@@ -99,6 +125,7 @@ void read_color(){
     int current_r = map(r, white_r, black_r, 255, 0);
     int current_g = map(g, white_g, black_g, 255, 0);
     int current_b = map(b, white_b, black_b, 255, 0);
+    send_rgb_code(current_r, current_g, current_b);
 }
 
 void read_rgb_values(int *r, int *g, int *b){
@@ -129,5 +156,16 @@ void print_color(int r, int g, int b){
 }
 
 void send_rgb_code(int r, int g, int b){
-    
+    if(r<10)Serial.print("0");
+    if(r<100)Serial.print("0");
+    Serial.print(r);
+    Serial.print(";");
+    if(g<10)Serial.print("0");
+    if(g<100)Serial.print("0");
+    Serial.print(g);
+    Serial.print(";");
+    if(b<10)Serial.print("0");
+    if(b<100)Serial.print("0");
+    Serial.print(b);
+    delay(100);
 }
