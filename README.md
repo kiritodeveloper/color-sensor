@@ -40,7 +40,7 @@ Si el objeto se ve negro es porque absorbe todas las radiaciones electromagnéti
 
 El tomate nos parece de color rojo, porque el ojo sólo recibe la luz roja reflejada por la hortaliza, absorbe el verde y el azul y refleja solamente el rojo. Un plátano amarillo absorbe el color azul y refleja los colores rojo y verde, los cuales sumados permiten visualizar el color amarillo.
 
-#Referencias
+# Referencias
 
 * [1] [FotoNostra - Teoría del color ¿Qué es el color?](https://www.fotonostra.com/grafico/coloresobjetos.htm)
 * [2] [FotoNostra - Como son percibidos los colores de los objetos](https://www.fotonostra.com/grafico/coloresobjetos.htm)
