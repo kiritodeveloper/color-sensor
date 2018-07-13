@@ -40,6 +40,16 @@ Si el objeto se ve negro es porque absorbe todas las radiaciones electromagnéti
 
 El tomate nos parece de color rojo, porque el ojo sólo recibe la luz roja reflejada por la hortaliza, absorbe el verde y el azul y refleja solamente el rojo. Un plátano amarillo absorbe el color azul y refleja los colores rojo y verde, los cuales sumados permiten visualizar el color amarillo.
 
+### Colores primarios en la luz
+
+Los colores producidos por la luz (Los de un monitor de un ordenador, en el cine, televisión, etc. por ejemplo) identifican como colores primarios al rojo, verde y al azul (RGB). Esto se debe a que el ojo humano está compuesto por conos y bastones que son los que nos permiten ver.
+
+Existen tres tipos de conos, cada uno sensible a un tipo de luz. Unos a la luz roja, otros a la luz verde y otra a la azul. La suma de estos tres colores compone la luz blanca. A esta fusión se la denomina Síntesis aditiva y las mezclas parciales de estas luces dan origen a la mayoría de los colores del espectro visible.
+
+### Funcionamiento del sensor
+
+
+
 # Referencias
 
 * [1] [FotoNostra - Teoría del color ¿Qué es el color?](https://www.fotonostra.com/grafico/coloresobjetos.htm)
