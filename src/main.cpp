@@ -38,6 +38,7 @@ void read_color();
 void read_rgb_values(int *r, int *g, int *b);
 void print_color(int r, int g, int b);
 void send_rgb_code(int r, int g, int b);
+void blinkLed(int led);
 
 void setup()
 {
