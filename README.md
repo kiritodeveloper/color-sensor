@@ -70,7 +70,7 @@ Dado que la resistencia del fotoresistor será variable a lo largo del tiempo, e
 
 La idea entonces será ubicar el diodo LED RGB y el fotorresistor dentro de una "tapa" negra, con la cual se pueda tapar la superficie de la cual se desea conocer el color. 
 
-(IMAGEN DE LA TAPA)
+![](https://github.com/martin919191/ColorSensor/blob/master/img/tapa.jpg?raw=true)
 
 El diodo LED RGB se irá prendiendo de a un color a la vez. Con cada color que se prende, se leerá analógicamente el valor en el pin *analog in* de la placa Arduino UNO. Dado que el diodo LED y el fotorresistor se encuentran dentro  de la "tapa", parte de la luz que se emite se reflejará en la superficie, mientras que el resto rebotará y modificará la resistencia del fotorresistor. Podemos decir, para simplificar la explicación, que con el fotorresistor *leemos la cantidad de luz reflejada por la superficie*. 
 
