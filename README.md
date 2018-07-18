@@ -64,7 +64,7 @@ Una vez que el sensor toma la luz que refleja la superficie para cada color, env
 ### Lectura de los valores de color
 El fotoresistor es un componente que varía sus resistencia al paso de la corriente eléctrica, en función de la luz que incide sobre él. Si construimos un circuito divisor de tensión con un resistor y el fotorresistor, podemos leer la tensión de salida del mismo con alguno de los pines *analog in* de la placa Arduino.
 
-(IMAGEN DE DIVISOR DE TENSIÓN)
+![](https://github.com/martin919191/ColorSensor/blob/master/img/divisor_tension.png?raw=true)
 
 Dado que la resistencia del fotoresistor será variable a lo largo del tiempo, el valor leído en el pin *analog in* de la arduino será también variable, y estará comprendido entre 0 y 1023 (resolución analógica de la Arduino Uno). 
 
