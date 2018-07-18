@@ -47,7 +47,34 @@ Los colores producidos por la luz (Los de un monitor de un ordenador, en el cine
 Existen tres tipos de conos, cada uno sensible a un tipo de luz. Unos a la luz roja, otros a la luz verde y otra a la azul. La suma de estos tres colores compone la luz blanca. A esta fusión se la denomina Síntesis aditiva y las mezclas parciales de estas luces dan origen a la mayoría de los colores del espectro visible.
 
 ### Funcionamiento del sensor
+Basándonos en los principios enunciados anteriormente, se plantea un sistema que ilumine una superficie con luz roja, verde y azul, y al mismo tiempo mida la cantidad de luz que es reflejada por la misma. Conociendo la cantidad de luz reflejada de cada color estamos en condiciones de formar digitalmente el color de la superficie que se está observando.
 
+Para poder realizar esto, es necesario que el sensor primero establezca límites para cada color. Esto quiere decir que el sensor debe almacenar los valores que manejará con una superficie blanca y una superficie negra, para luego usarlos de referencia en las mediciones subsiguientes. Estos límites y cómo calcularlos se explican más adelante en los detalles técnicos de funcionamiento.
+
+Una vez que el sensor toma la luz que refleja la superficie para cada color, envía esa información a través del puerto serie, conectado a un módulo bluetooth. Estos valores pueden serán interpretados luego por la aplicación Android que se encuentra en el repositorio, para mostrar de manera gráfica una copia del color de la superficie que se está midiendo.
+
+## Detalles técnicos de funcionamiento
+### Componentes a utilizar
+* Placa Arduino Uno
+* LED RGB
+* Fotorresistor
+* Módulo Bluetooth HC-06
+* Resistor 1K
+
+### Lectura de los valores de color
+El fotoresistor es un componente que varía sus resistencia al paso de la corriente eléctrica, en función de la luz que incide sobre él. Si construimos un circuito divisor de tensión con un resistor y el fotorresistor, podemos leer la tensión de salida del mismo con alguno de los pines *analog in* de la placa Arduino.
+
+(IMAGEN DE DIVISOR DE TENSIÓN)
+
+Dado que la resistencia del fotoresistor será variable a lo largo del tiempo, el valor leído en el pin *analog in* de la arduino será también variable, y estará comprendido entre 0 y 1023 (resolución analógica de la Arduino Uno). 
+
+La idea entonces será ubicar el diodo LED RGB y el fotorresistor dentro de una "tapa" negra, con la cual se pueda tapar la superficie de la cual se desea conocer el color. 
+
+(IMAGEN DE LA TAPA)
+
+El diodo LED RGB se irá prendiendo de a un color a la vez. Con cada color que se prende, se leerá analógicamente el valor en el pin *analog in* de la placa Arduino UNO. Dado que el diodo LED y el fotorresistor se encuentran dentro  de la "tapa", parte de la luz que se emite se reflejará en la superficie, mientras que el resto rebotará y modificará la resistencia del fotorresistor. Podemos decir, para simplificar la explicación, que con el fotorresistor *leemos la cantidad de luz reflejada por la superficie*. 
+
+Supongamos un caso práctico en el que tapamos una superficie amarilla. El color amarillo, en la luz, se forma con un 100% de reflexión de luz verde y roja. Al tapar la superficie, encendemos el color rojo del diodo LED RGB. Como la superficie es amarilla, la luz roja emitida por el diodo LED se reflejará en un 100% (esto se da en la teoría, suponiendo componentes ideales que no presentan error, y una superficie amarilla pura), por lo que en el pin *analog in* estaremos *leyendo una gran cantidad de luz reflejada*. Lo mismo sucederá cuando se encienda la luz verde del diodo LED RGB, ya que el 100% de la luz verde será reflejada. El caso contrario se presenta cuando encendemos la luz azul del diodo. Ya que la superficie es amarilla, la misma absorbe por completo la luz azul, haciendo que el fotorresistor *no lea luz reflejada*. Con esos tres valores que representan la *cantidad de luz reflejada de cada color*, estamos en condiciones de saber, combinando las tres magnitudes, qué color es el presente en la superficie.
 
 
 # Referencias
