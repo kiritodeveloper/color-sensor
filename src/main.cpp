@@ -117,15 +117,9 @@ void calibrate()
         white_r = average_white_r / 5;
         white_g = average_white_g / 5;
         white_b = average_white_b / 5;
-        //Serial.println("White");
-        //send_rgb_code(white_r,white_g,white_b);
-        //Serial.println();
         black_r = average_black_r / 5;
         black_g = average_black_g / 5;
         black_b = average_black_b / 5;
-        //Serial.println("Black");
-        //send_rgb_code(black_r,black_g,black_b);
-        //Serial.println();
         current_state = STATE_READ_COLOR;
         calibration_black_started = false;
         calibration_white_started = false;
@@ -202,7 +196,7 @@ void send_rgb_code(int r, int g, int b)
     if (b < 100)
         Serial.print("0");
     Serial.print(b);
-    delay(100);
+    delay(50);
 }
 
 long blink_start = millis();

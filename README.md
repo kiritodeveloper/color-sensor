@@ -76,6 +76,10 @@ El diodo LED RGB se irá prendiendo de a un color a la vez. Con cada color que s
 
 Supongamos un caso práctico en el que tapamos una superficie amarilla. El color amarillo, en la luz, se forma con un 100% de reflexión de luz verde y roja. Al tapar la superficie, encendemos el color rojo del diodo LED RGB. Como la superficie es amarilla, la luz roja emitida por el diodo LED se reflejará en un 100% (esto se da en la teoría, suponiendo componentes ideales que no presentan error, y una superficie amarilla pura), por lo que en el pin *analog in* estaremos *leyendo una gran cantidad de luz reflejada*. Lo mismo sucederá cuando se encienda la luz verde del diodo LED RGB, ya que el 100% de la luz verde será reflejada. El caso contrario se presenta cuando encendemos la luz azul del diodo. Ya que la superficie es amarilla, la misma absorbe por completo la luz azul, haciendo que el fotorresistor *no lea luz reflejada*. Con esos tres valores que representan la *cantidad de luz reflejada de cada color*, estamos en condiciones de saber, combinando las tres magnitudes, qué color es el presente en la superficie.
 
+### Calibración
+Los valores leídos en el pin *analog in* tienen un rango que se comprende entre 0 y 1023, siendo 0 cuando existe una diferencia de potencial de 0v y 1023 cuando hay una diferencia de potencial de 5v (suponiendo que la placa Arduino se encuentra conectada a una fuente que entrega 5v).
+Debido a que el fotorresistor se encuentra en la tapa junto al diodo LED, aunque la superficie no refleje luz (superficie negra), gran parte de la luz que emite el diodo LED incide en él. En resumen, si la superficie es negra, el fotorresitor recibe luz igual. Por otro lado, si la superficie es blanca, toda la luz es reflejada, haciendo que el fotorresistor además de recibir la luz que emite el diodo LED, reciba la luz reflejada por la superficie. Si comparamos los valores leídos, 
+
 
 # Referencias
 

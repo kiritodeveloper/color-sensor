@@ -4,7 +4,7 @@
         "PLATFORMIO_CALLER": "vscode"
     },
     "terminal.integrated.env.osx": {
-        "PATH": "/Users/martinisusi/.platformio/penv/bin:/Users/martinisusi/.platformio/penv:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands",
+        "PATH": "/Users/martinisusi/.platformio/penv/bin:/Users/martinisusi/.platformio/penv:/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands",
         "PLATFORMIO_CALLER": "vscode"
     }
 }
