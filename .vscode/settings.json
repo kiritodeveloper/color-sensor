@@ -6,5 +6,9 @@
     "terminal.integrated.env.osx": {
         "PATH": "/Users/martinisusi/.platformio/penv/bin:/Users/martinisusi/.platformio/penv:/anaconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands",
         "PLATFORMIO_CALLER": "vscode"
+    },
+    "terminal.integrated.env.linux": {
+        "PATH": "/home/martin/.platformio/penv/bin:/home/martin/.platformio/penv:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PLATFORMIO_CALLER": "vscode"
     }
 }

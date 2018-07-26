@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include <SoftwareSerial.h>
 // Define constants
 #define LED_R 11
 #define LED_G 12
@@ -30,6 +30,7 @@ int average_white_r = 0, average_white_g = 0, average_white_b = 0;
 int average_black_r = 0, average_black_g = 0, average_black_b = 0;
 bool calibration_white_started = false;
 bool calibration_black_started = false;
+SoftwareSerial bluetooth(10,9);
 
 // Function declaration
 void initialize();
@@ -48,8 +49,19 @@ void setup()
 void loop()
 {
     button_status = digitalRead(BUTTON_CALIBRATE);
-    if (button_status == 0 and last_button_status == 1)
+    if (button_status == 0 && last_button_status == 1){
+        white_calibration_count = 0;
+        black_calibration_count = 0;
+        average_white_r = 0;
+        average_white_g = 0;
+        average_white_b = 0;
+        average_black_r = 0;
+        average_black_g = 0;
+        average_black_b = 0;
+        calibration_white_started = false;
+        calibration_black_started = false;
         current_state = STATE_CALIBRATION;
+    }
     switch (current_state)
     {
     case STATE_READ_COLOR:
@@ -67,10 +79,12 @@ void loop()
 void initialize()
 {
     Serial.begin(9600);
+    bluetooth.begin(9600);
     pinMode(LED_R, OUTPUT);
     pinMode(LED_G, OUTPUT);
     pinMode(LED_B, OUTPUT);
     pinMode(LED_CALIBRATION_WHITE, OUTPUT);
+    pinMode(LED_CALIBRATION_BLACK, OUTPUT);
     pinMode(LED_SENSING, OUTPUT);
     pinMode(BUTTON_CALIBRATE, INPUT_PULLUP);
     current_state = STATE_CALIBRATION;
@@ -179,6 +193,7 @@ void print_color(int r, int g, int b)
 
 void send_rgb_code(int r, int g, int b)
 {
+    /*
     if (r < 10)
         Serial.print("0");
     if (r < 100)
@@ -196,6 +211,25 @@ void send_rgb_code(int r, int g, int b)
     if (b < 100)
         Serial.print("0");
     Serial.print(b);
+    delay(50);
+    */
+   if (r < 10)
+        bluetooth.print("0");
+    if (r < 100)
+        bluetooth.print("0");
+    bluetooth.print(r);
+    bluetooth.print(";");
+    if (g < 10)
+        bluetooth.print("0");
+    if (g < 100)
+        bluetooth.print("0");
+    bluetooth.print(g);
+    bluetooth.print(";");
+    if (b < 10)
+        bluetooth.print("0");
+    if (b < 100)
+        bluetooth.print("0");
+    bluetooth.print(b);
     delay(50);
 }
 
