@@ -37,7 +37,6 @@ void initialize();
 void calibrate();
 void read_color();
 void read_rgb_values(int *r, int *g, int *b);
-void print_color(int r, int g, int b);
 void send_rgb_code(int r, int g, int b);
 void blinkLed(int led);
 
@@ -186,33 +185,8 @@ void read_rgb_values(int *r, int *g, int *b)
     digitalWrite(LED_B, LOW);
 }
 
-void print_color(int r, int g, int b)
-{
-    //Still to implement
-}
-
 void send_rgb_code(int r, int g, int b)
 {
-    /*
-    if (r < 10)
-        Serial.print("0");
-    if (r < 100)
-        Serial.print("0");
-    Serial.print(r);
-    Serial.print(";");
-    if (g < 10)
-        Serial.print("0");
-    if (g < 100)
-        Serial.print("0");
-    Serial.print(g);
-    Serial.print(";");
-    if (b < 10)
-        Serial.print("0");
-    if (b < 100)
-        Serial.print("0");
-    Serial.print(b);
-    delay(50);
-    */
    if (r < 10)
         bluetooth.print("0");
     if (r < 100)
